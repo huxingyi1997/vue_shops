@@ -23,7 +23,9 @@ import {
     Switch,
     Tooltip,
     Pagination,
-    Dialog
+    Dialog,
+    MessageBox,
+    Option
 } from 'element-ui'
 
 Vue.use(Button)
@@ -32,6 +34,7 @@ Vue.use(FormItem)
 Vue.use(Input)
 // 进行全局挂载：
 Vue.prototype.$message = Message
+Vue.prototype.$confirm = MessageBox.confirm
 Vue.use(Container)
 Vue.use(Header)
 Vue.use(Aside)
@@ -50,3 +53,4 @@ Vue.use(Switch)
 Vue.use(Tooltip)
 Vue.use(Pagination)
 Vue.use(Dialog)
+Vue.use(Option)
