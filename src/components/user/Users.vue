@@ -11,7 +11,7 @@
     <el-card>
       <!-- 搜索与添加区域 -->
       <el-row :gutter="20">
-        <el-col :span="7">
+        <el-col :span="8">
           <el-input
             placeholder="请输入内容"
             v-model="queryInfo.query"
@@ -32,36 +32,57 @@
         </el-col>
       </el-row>
 
-      <!-- 用户列表(表格)区域 -->
+      <!-- 用户列表区域 -->
       <el-table :data="userList" border stripe>
         <el-table-column type="index"></el-table-column>
         <el-table-column label="姓名" prop="username"></el-table-column>
         <el-table-column label="邮箱" prop="email"></el-table-column>
         <el-table-column label="电话" prop="mobile"></el-table-column>
         <el-table-column label="角色" prop="role_name"></el-table-column>
-        <el-table-column label="状态">
+        <el-table-column label="状态" prop="mg_state">
           <template slot-scope="scope">
             <el-switch
               v-model="scope.row.mg_state"
               @change="userStateChanged(scope.row)"
-            ></el-switch>
+            >
+            </el-switch>
           </template>
         </el-table-column>
         <el-table-column label="操作" width="180px">
           <template slot-scope="scope">
-            <!-- 修改 -->
-            <el-button type="primary" icon="el-icon-edit" size="mini" @click="showEditDialog(scope.row.id)"></el-button>
-            <!-- 删除 -->
-            <el-button type="danger" icon="el-icon-delete" size="mini" @click="removeUserById(scope.row.id)"></el-button>
-            <!-- 分配角色 -->
-            <el-tooltip effect="dark" content="分配角色" placement="top" :enterable="false">
-             <el-button type="warning" icon="el-icon-setting" size="mini" @click="setRole(scope.row)"></el-button>
+            <!-- 修改按钮 -->
+            <el-button
+              type="primary"
+              icon="el-icon-edit"
+              size="mini"
+              @click="showEditDialog(scope.row.id)"
+            ></el-button>
+            <!-- 删除按钮 -->
+            <el-button
+              type="danger"
+              icon="el-icon-delete"
+              size="mini"
+              @click="removeUserById(scope.row.id)"
+            ></el-button>
+            <!-- 分配角色按钮 -->
+            <el-tooltip
+              effect="dark"
+              content="分配角色"
+              placement="top"
+              :enterable="false"
+            >
+              <el-button
+                type="warning"
+                icon="el-icon-setting"
+                size="mini"
+                @click="setRole(scope.row)"
+              ></el-button>
             </el-tooltip>
           </template>
         </el-table-column>
       </el-table>
 
-      <!-- 分页导航区域 @size-change(pagesize改变时触发) @current-change(页码发生改变时触发):current-page(设置当前页码):page-size(设置每页的数据条数):total(设置总页数) -->
+      <!-- 分页区域 -->
       <el-pagination
         @size-change="handleSizeChange"
         @current-change="handleCurrentChange"
@@ -74,14 +95,14 @@
       </el-pagination>
     </el-card>
 
-    <!-- 对话框组件  :visible.sync(设置是否显示对话框) width(设置对话框的宽度) :before-close(在对话框关闭前触发的事件) -->
+    <!-- 添加用户的对话框 -->
     <el-dialog
       title="添加用户"
       :visible.sync="addDialogVisible"
       width="50%"
       @close="addDialogClosed"
     >
-      <!-- 对话框主体区域 -->
+      <!-- 内容主体区域 -->
       <el-form
         :model="addForm"
         :rules="addFormRules"
@@ -97,11 +118,11 @@
         <el-form-item label="邮箱" prop="email">
           <el-input v-model="addForm.email"></el-input>
         </el-form-item>
-        <el-form-item label="电话" prop="mobile">
+        <el-form-item label="手机" prop="mobile">
           <el-input v-model="addForm.mobile"></el-input>
         </el-form-item>
       </el-form>
-      <!-- 对话框底部区域 -->
+      <!-- 底部区域 -->
       <span slot="footer" class="dialog-footer">
         <el-button @click="addDialogVisible = false">取 消</el-button>
         <el-button type="primary" @click="addDialogVisible = false"
@@ -135,7 +156,7 @@
       </el-form>
       <span slot="footer" class="dialog-footer">
         <el-button @click="editDialogVisible = false">取 消</el-button>
-        <el-button type="primary" @click="editUser">确 定</el-button>
+        <el-button type="primary" @click="editUserInfo">确 定</el-button>
       </span>
     </el-dialog>
 
@@ -162,9 +183,8 @@
           </el-select>
         </p>
       </div>
-      <span>这是一段信息</span>
       <span slot="footer" class="dialog-footer">
-        <el-button @click="setRoleDialogVisile = false">取 消</el-button>
+        <el-button @click="setRoleDialogVisible = false">取 消</el-button>
         <el-button type="primary" @click="saveRoleInfo">确 定</el-button>
       </span>
     </el-dialog>
@@ -198,13 +218,14 @@ export default {
       cb(new Error('请输入合法的手机号'))
     }
     return {
-      // 获取查询用户信息的参数
+      // 获取用户列表的参数对象
       queryInfo: {
         query: '',
+        // 当前的页数
         pagenum: 1,
+        // 当前每页显示多少条数据
         pagesize: 2
       },
-      // 保存请求回来的用户列表数据
       userList: [],
       total: 0,
       // 控制添加用户对话框的显示与隐藏
@@ -275,18 +296,15 @@ export default {
   },
   methods: {
     async getUserList() {
-      // 发送请求获取用户列表数据
       const { data: res } = await this.$http.get('users', {
         params: this.queryInfo
       })
-      // 如果返回状态为异常状态则报错并返回
       if (res.meta.status !== 200) {
-        return this.$message.error('获取用户列表失败')
+        return this.$message.error('获取管理员列表失败!')
       }
-      //   console.log(res)
-      // 如果返回状态正常，将请求的数据保存在data中
       this.userList = res.data.users
       this.total = res.data.total
+      // console.log(res)
     },
     // 监听 pagesize 改变的事件
     handleSizeChange(newSize) {
@@ -351,9 +369,9 @@ export default {
       this.$refs.editFormRef.resetFields()
     },
     // 修改用户信息并提交
-    editUser() {
+    editUserInfo() {
       this.$refs.editFormRef.validate(async valid => {
-        if (!valid) return this.$message.error('请填写完整用户信息')
+        if (!valid) return
         // 发起修改用户信息的数据请求
         const { data: res } = await this.$http.put(
           'users/' + this.editForm.id,
