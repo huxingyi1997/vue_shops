@@ -22,44 +22,22 @@
       <!-- 展开列 -->
       <el-table-column type="expand">
         <template slot-scope="scope">
-          <el-row
-            :class="['bdbottom', i1 === 0 ? 'bdtop' : '', 'vcenter']"
-            v-for="(item1, i1) in scope.row.children"
-            :key="item1.id"
-          >
+          <el-row :class="['bdbottom', i1 === 0 ? 'bdtop' : '', 'vcenter']" v-for="(item1, i1) in scope.row.children" :key="item1.id">
             <!-- 渲染一级权限 -->
             <el-col :span="5">
-              <el-tag closable @close="removeRightById(scope.row, item1.id)">{{
-                item1.authName
-              }}</el-tag>
+              <el-tag closable @close="removeRightById(scope.row, item1.id)">{{ item1.authName }}</el-tag>
               <i class="el-icon-caret-right"></i>
             </el-col>
             <!-- 渲染二级和三级权限 -->
             <el-col :span="19">
               <!-- 通过 for 循环 嵌套渲染二级权限 -->
-              <el-row
-                :class="[i2 === 0 ? '' : 'bdtop', 'vcenter']"
-                v-for="(item2, i2) in item1.children"
-                :key="item2.id"
-              >
+              <el-row :class="[i2 === 0 ? '' : 'bdtop', 'vcenter']" v-for="(item2, i2) in item1.children" :key="item2.id">
                 <el-col :span="6">
-                  <el-tag
-                    type="success"
-                    closable
-                    @close="removeRightById(scope.row, item2.id)"
-                    >{{ item2.authName }}</el-tag
-                  >
+                  <el-tag type="success" closable @close="removeRightById(scope.row, item2.id)">{{ item2.authName }}</el-tag>
                   <i class="el-icon-caret-right"></i>
                 </el-col>
                 <el-col :span="18">
-                  <el-tag
-                    type="warning"
-                    v-for="item3 in item2.children"
-                    :key="item3.id"
-                    closable
-                    @close="removeRightById(scope.row, item3.id)"
-                    >{{ item3.authName }}</el-tag
-                  >
+                  <el-tag type="warning" v-for="item3 in item2.children" :key="item3.id" closable @close="removeRightById(scope.row, item3.id)">{{ item3.authName }}</el-tag>
                 </el-col>
               </el-row>
             </el-col>
@@ -76,45 +54,22 @@
       <el-table-column label="角色描述" prop="roleDesc"></el-table-column>
       <el-table-column label="操作" width="300px">
         <template slot-scope="scope">
-          <el-button size="mini" type="primary" icon="el-icon-edit"
-            >编辑</el-button
-          >
-          <el-button size="mini" type="danger" icon="el-icon-delete"
-            >删除</el-button
-          >
-          <el-button
-            size="mini"
-            type="warning"
-            icon="el-icon-setting"
-            @click="showSetRightDialog(scope.row)"
-            >分配权限</el-button
-          >
+          <el-button size="mini" type="primary" icon="el-icon-edit">编辑</el-button>
+          <el-button size="mini" type="danger" icon="el-icon-delete">删除</el-button>
+          <el-button size="mini" type="warning" icon="el-icon-setting" @click="showSetRightDialog(scope.row)">分配权限</el-button>
         </template>
       </el-table-column>
     </el-table>
 
     <!-- 分配权限的对话框 -->
-    <el-dialog
-      title="分配权限"
-      :visible.sync="setRightDialogVisible"
-      width="50%"
-      @close="setRightDialogClosed"
-    >
+    <el-dialog title="分配权限" :visible.sync="setRightDialogVisible" width="50%" @close="setRightDialogClosed">
       <!-- 树形组件
     show-checkbox:显示复选框
     node-key:设置选中节点对应的值
     default-expand-all:是否默认展开所有节点
     :default-checked-keys 设置默认选中项的数组
     ref:设置引用 -->
-      <el-tree
-        :data="rightslist"
-        :props="treeProps"
-        show-checkbox
-        node-key="id"
-        default-expand-all
-        :default-checked-keys="defKeys"
-        ref="treeRef"
-      ></el-tree>
+      <el-tree :data="rightslist" :props="treeProps" show-checkbox node-key="id" default-expand-all :default-checked-keys="defKeys" ref="treeRef"></el-tree>
       <span slot="footer" class="dialog-footer">
         <el-button @click="setRightDialogVisible = false">取 消</el-button>
         <el-button type="primary" @click="allotRights">确 定</el-button>
@@ -163,15 +118,11 @@ export default {
     // 根据Id删除对应的权限
     async removeRightById(role, rightId) {
       // 弹框提示用户是否用删除
-      const confirmResult = await this.$confirm(
-        '此操作将永久删除该文件, 是否继续?',
-        '提示',
-        {
-          confirmButtonText: '确认删除',
-          cancelButtonText: '取消',
-          type: 'warning'
-        }
-      ).catch(err => err)
+      const confirmResult = await this.$confirm('此操作将永久删除该文件, 是否继续?', '提示', {
+        confirmButtonText: '确认删除',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).catch(err => err)
 
       if (confirmResult !== 'confirm') {
         return this.$message.info('取消了删除!')
@@ -180,9 +131,7 @@ export default {
       // 用户点击了确定表示真的要删除
       // 当发送delete请求之后，返回的数据就是最新的角色权限信息
       // console.log('确认了删除')
-      const { data: res } = await this.$http.delete(
-        `roles/${role.id}/rights/${rightId}`
-      )
+      const { data: res } = await this.$http.delete(`roles/${role.id}/rights/${rightId}`)
       // 如果用户点击确认，则confirmResult 为'confirm'
       // 如果用户点击取消, 则confirmResult获取的就是catch的错误消息'cancel'
       if (res.meta.status !== 200) {
@@ -230,17 +179,11 @@ export default {
     },
     // 点击为角色分配权限
     async allotRights() {
-      const keys = [
-        ...this.$refs.treeRef.getCheckedKeys(),
-        ...this.$refs.treeRef.getHalfCheckedKeys()
-      ]
+      const keys = [...this.$refs.treeRef.getCheckedKeys(), ...this.$refs.treeRef.getHalfCheckedKeys()]
 
       const idStr = keys.join(',')
 
-      const { data: res } = await this.$http.post(
-        `roles/${this.roleId}/rights`,
-        { rids: idStr }
-      )
+      const { data: res } = await this.$http.post(`roles/${this.roleId}/rights`, { rids: idStr })
 
       if (res.meta.status !== 200) {
         return this.$message.error('分配权限失败!')
