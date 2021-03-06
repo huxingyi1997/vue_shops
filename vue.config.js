@@ -43,16 +43,5 @@ module.exports = {
       })
     })
   },
-  publicPath: process.env.NODE_ENV === 'production' ? '/vue-admin-web/' : '/',
-  configureWebpack: {
-    resolve: {
-      alias: {
-        'src': path.join(__dirname, '/src'), // 这些路径改改看看
-        'assets': path.join(__dirname, './src/assets'),
-        'components': path.join(__dirname, './src/components'),
-        'plugins': path.join(__dirname, './src/plugins'),
-        'router': path.join(__dirname, './src/router')
-      }
-    }
-  }
+  publicPath: process.env.NODE_ENV === 'production' ? '/vue-admin-web/' : '/'
 }
