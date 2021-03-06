@@ -1,4 +1,3 @@
-const path = require('path');
 module.exports = {
   chainWebpack: config => {
     // 发布模式
@@ -43,5 +42,5 @@ module.exports = {
       })
     })
   },
-  publicPath: process.env.NODE_ENV === 'production' ? '/vue-admin-web/' : '/'
+  publicPath: process.env.NODE_ENV === 'production' ? '/vue_shops/' : '/'
 }
