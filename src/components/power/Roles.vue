@@ -18,7 +18,7 @@
     </el-card>
 
     <!-- 角色列表区域 -->
-    <el-table :data="rolelist" border stripe>
+    <el-table :data="rolelist" border stripe row-key="id">
       <!-- 展开列 -->
       <el-table-column type="expand">
         <template slot-scope="scope">
