@@ -1,24 +1,28 @@
 # vue_shops
 
-## Project setup
+## 项目安装依赖项
 ```
 npm install
 ```
 
-### Compiles and hot-reloads for development
+### 以开发模式编码
 ```
 npm run serve
 ```
 
-### Compiles and minifies for production
+### 以发布模式变异
 ```
 npm run build
 ```
 
-### Lints and fixes files
+### 修改代码样式
 ```
 npm run lint
 ```
 
-### Customize configuration
+### 自定义配置
 See [Configuration Reference](https://cli.vuejs.org/config/).
+
+
+### 在线访问
+[Vue电商项目](https://hxy1997.gitee.io/vue_shops/)
