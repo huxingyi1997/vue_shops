@@ -23,6 +23,8 @@ const Params = () => import(/* webpackChunkName: "Cate_Params" */ '../components
 const GoodsList = () => import(/* webpackChunkName: "GoodsList_Add" */ '../components/goods/List.vue')
 // import Add from '../components/goods/Add.vue'
 const Add = () => import(/* webpackChunkName: "GoodsList_Add" */ '../components/goods/Add.vue')
+// import Edit from '../components/goods/Edit.vue'
+const Edit = () => import(/* webpackChunkName: "GoodsList_Add" */ '../components/goods/Edit.vue')
 
 // import Order from '../components/order/Order.vue'
 const Order = () => import(/* webpackChunkName: "Order_Report" */ '../components/order/Order.vue')
@@ -48,6 +50,7 @@ const router = new VueRouter({
         { path: '/params', component: Params },
         { path: '/goods', component: GoodsList },
         { path: '/goods/add', component: Add },
+        { path: '/goods/edit/:id', component: Edit },
         { path: '/orders', component: Order },
         { path: '/reports', component: Report }
       ]

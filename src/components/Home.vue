@@ -15,7 +15,7 @@
       <!-- 侧边栏 -->
       <el-aside :width="isCollapse ? '64px' : '200px'">
         <!-- 伸缩侧边栏按钮 -->
-        <div class="toggle-button" @click="toggleCollapse">|||</div>
+        <div class="toggle-button" @click="toggleCollapse"><i :class="isCollapse?'el-icon-s-unfold':'el-icon-s-fold'"></i></div>
         <!-- 侧边栏菜单，:collapse="isCollapse"（设置折叠菜单为绑定的 isCollapse 值），:collapse-transition="false"（关闭默认的折叠动画） -->
         <!-- 侧边栏菜单区域 -->
         <el-menu background-color="#333744" text-color="#fff" active-text-color="#ffd04b" unique-opened :collapse="isCollapse" :collapse-transition="false" router :default-active="activePath">
@@ -134,10 +134,15 @@ export default {
   background-color: #eaedf1;
 }
 
+.iconfont {
+  margin-right: 20px;
+  font-size: 20px;
+}
+
 .toggle-button {
   background-color: #4a5064;
-  font-size: 10px;
-  line-height: 24px;
+  font-size: 20px;
+  line-height: 40px;
   color: #fff;
   text-align: center;
   letter-spacing: 0.2em;
