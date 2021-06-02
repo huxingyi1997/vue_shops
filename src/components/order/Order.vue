@@ -41,18 +41,18 @@
           </template>
         </el-table-column>
         <el-table-column label="操作" width="180">
-          <template>
+          <template slot-scope="scope">
             <el-button
               size="small"
               type="primary"
               icon="el-icon-edit"
-              @click="showBox"
+              @click="showBox(scope.row)"
             >地址</el-button>
             <el-button
               size="small"
               type="success"
               icon="el-icon-location"
-              @click="showProgressBox"
+              @click="showProgressBox(scope.row)"
             >物流</el-button>
           </template>
         </el-table-column>
@@ -184,7 +184,7 @@ export default {
       this.getOrderList()
     },
     // 展示修改地址的对话框
-    showBox() {
+    showBox(data) {
       this.addressVisible = true
     },
     // 修改地址的对话框关闭
@@ -192,7 +192,7 @@ export default {
       // 情况表单
       this.$refs.addressFormRef.resetFields()
     },
-    async showProgressBox() {
+    showProgressBox(data) {
       // api 请求有问题，所以直接定义数据
       // const { data: res } = await this.$http.get('/kuaidi/804909574412544580')
 
