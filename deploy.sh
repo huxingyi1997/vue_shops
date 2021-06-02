@@ -9,7 +9,7 @@ npm run build
 # 执行
 git add -A
 git commit -m 'deploy提交'
-git push
+git push -f
 
 # cd 到构建输出的目录下 
 cd dist
