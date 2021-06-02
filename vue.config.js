@@ -13,7 +13,8 @@ module.exports = {
       config.set('externals', {
         vue: 'Vue',
         'vue-router': 'VueRouter',
-        axios: 'axios',
+        // axios: 'axios',
+        axios: 'ts-axios-hxy',
         lodash: '_',
         echarts: 'echarts',
         nprogress: 'NProgress',

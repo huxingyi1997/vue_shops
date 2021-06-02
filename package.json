@@ -5,15 +5,16 @@
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
-    "lint": "vue-cli-service lint"
+    "lint": "vue-cli-service lint",
+    "deploy": "sh deploy.sh"
   },
   "dependencies": {
-    "axios": "^0.20.0",
     "core-js": "^3.6.5",
     "echarts": "^4.9.0",
-    "element-ui": "2.4.5",
+    "element-ui": "^2.14.0",
     "lodash": "^4.17.20",
     "nprogress": "^0.2.0",
+    "ts-axios-hxy": "^0.1.0",
     "vue": "^2.6.11",
     "vue-quill-editor": "^3.0.6",
     "vue-router": "^3.2.0",
@@ -29,6 +30,7 @@
     "babel-eslint": "^10.1.0",
     "babel-plugin-component": "^1.1.1",
     "babel-plugin-transform-remove-console": "^6.9.4",
+    "element-ui": "^2.14.0",
     "eslint": "^6.7.2",
     "eslint-plugin-import": "^2.20.2",
     "eslint-plugin-node": "^11.1.0",
@@ -37,6 +39,7 @@
     "eslint-plugin-vue": "^6.2.2",
     "less": "^3.12.2",
     "less-loader": "^7.0.1",
+    "ts-axios-hxy": "^0.1.0",
     "vue-cli-plugin-element": "^1.0.1",
     "vue-template-compiler": "^2.6.11"
   }

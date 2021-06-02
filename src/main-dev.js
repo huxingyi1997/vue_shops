@@ -19,7 +19,8 @@ import 'quill/dist/quill.bubble.css'
 import NProgress from 'nprogress'
 import 'nprogress/nprogress.css'
 
-import axios from 'axios' // for bubble theme
+import axios from 'ts-axios-hxy'
+// import axios from 'axios' // for bubble theme
 
 // 配置请求的根路径
 axios.defaults.baseURL = 'https://api.naccl.top/vue/shop/api/private/v1/'
