@@ -5,12 +5,12 @@
 npm install
 ```
 
-### 以开发模式编码
+### 开发模式编译
 ```
 npm run serve
 ```
 
-### 以发布模式变异
+### 发布模式编译
 ```
 npm run build
 ```
@@ -25,4 +25,5 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
 
 
 ### 在线访问
-[Vue电商项目](https://hxy1997.gitee.io/vue_shops/)
+国内推荐[Vue电商项目](https://hxy1997.gitee.io/vue_shops/)
+或者直接访问[Vue电商项目](https://hxy1997.xyz/vue_shops/)
